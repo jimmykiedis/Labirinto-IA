@@ -37,7 +37,9 @@ Dica geral de implementação (para qualquer um dos 3 algoritmos):
 from __future__ import annotations
 
 import time
+from collections import deque
 from dataclasses import dataclass, field
+from heapq import heappop, heappush
 from typing import Dict, List, Optional
 
 from maze import Coord, Maze
@@ -104,7 +106,24 @@ def bfs(maze: Maze) -> SearchResult:
     # 5. Se não for o objetivo, olhe os vizinhos livres dessa célula (maze.vizinhos(...)). Para cada vizinho ainda não conhecido: marque-o como conhecido, guarde
     # de qual célula você veio até ele (isso é o que permite reconstruir o caminho depois) e coloque-o no fim da fila.
     # 6. Se a fila esvaziar completamente sem nunca ter alcançado o objetivo, é sinal de que não existe caminho, devolva um resultado indicando isso.
-    raise NotImplementedError("Implemente o algoritmo BFS em algorithms.py")
+    fronteira = deque([maze.inicio])
+    conhecidos = {maze.inicio}
+    veio_de: Dict[Coord, Coord] = {}
+    explorados: List[Coord] = []
+
+    while fronteira:
+        atual = fronteira.popleft()
+        explorados.append(atual)
+        if atual == maze.objetivo:
+            return SearchResult(True, reconstruir_caminho(veio_de, maze.inicio, maze.objetivo), explorados, len(explorados), time.perf_counter() - inicio_tempo)
+
+        for vizinho in maze.vizinhos(atual):
+            if vizinho not in conhecidos:
+                conhecidos.add(vizinho)
+                veio_de[vizinho] = atual
+                fronteira.append(vizinho)
+
+    return SearchResult(False, [], explorados, len(explorados), time.perf_counter() - inicio_tempo)
 
 
 # ---------------------------------------------------------------------------
@@ -125,7 +144,24 @@ def dfs(maze: Maze) -> SearchResult:
 
     # TODO: implemente aqui a busca em profundidade.
 
-    raise NotImplementedError("Implemente o algoritmo DFS em algorithms.py")
+    fronteira = [maze.inicio]
+    conhecidos = {maze.inicio}
+    veio_de: Dict[Coord, Coord] = {}
+    explorados: List[Coord] = []
+
+    while fronteira:
+        atual = fronteira.pop()
+        explorados.append(atual)
+        if atual == maze.objetivo:
+            return SearchResult(True, reconstruir_caminho(veio_de, maze.inicio, maze.objetivo), explorados, len(explorados), time.perf_counter() - inicio_tempo)
+
+        for vizinho in maze.vizinhos(atual):
+            if vizinho not in conhecidos:
+                conhecidos.add(vizinho)
+                veio_de[vizinho] = atual
+                fronteira.append(vizinho)
+
+    return SearchResult(False, [], explorados, len(explorados), time.perf_counter() - inicio_tempo)
 
 
 # ---------------------------------------------------------------------------
@@ -149,7 +185,34 @@ def astar(maze: Maze) -> SearchResult:
 
     # TODO: implemente aqui a busca A*.
 
-    raise NotImplementedError("Implemente o algoritmo A* em algorithms.py")
+    contador = 0
+    fronteira = [(heuristica(maze.inicio, maze.objetivo), contador, maze.inicio)]
+    veio_de: Dict[Coord, Coord] = {}
+    custo: Dict[Coord, int] = {maze.inicio: 0}
+    explorados: List[Coord] = []
+    fechados = set()
+
+    while fronteira:
+        _, _, atual = heappop(fronteira)
+        if atual in fechados:
+            continue
+
+        fechados.add(atual)
+        explorados.append(atual)
+        if atual == maze.objetivo:
+            return SearchResult(True, reconstruir_caminho(veio_de, maze.inicio, maze.objetivo), explorados, len(explorados), time.perf_counter() - inicio_tempo)
+
+        for vizinho in maze.vizinhos(atual):
+            novo_custo = custo[atual] + 1
+            if vizinho in fechados or novo_custo >= custo.get(vizinho, float("inf")):
+                continue
+
+            custo[vizinho] = novo_custo
+            veio_de[vizinho] = atual
+            contador += 1
+            heappush(fronteira, (novo_custo + heuristica(vizinho, maze.objetivo), contador, vizinho))
+
+    return SearchResult(False, [], explorados, len(explorados), time.perf_counter() - inicio_tempo)
 
 
 # Mapa usado pela interface para associar o texto do dropdown à função
