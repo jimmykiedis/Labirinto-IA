@@ -119,8 +119,8 @@ Este repositório serve como base para a avaliação prática da disciplina de I
 
 Implementação em código realizada por:
 
-* Leonardo Farias de Oliveira
-* Josiel Phelipe Oliveira Franco
+* [Leonardo Farias de Oliveira](https://github.com/Jotshh)
+* [Josiel Phelipe Oliveira Franco](https://github.com/jimmykiedis)
 
 ## Créditos
 
