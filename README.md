@@ -54,6 +54,28 @@ Uma janela deve abrir com:
 
 Ao executar antes da implementação, a aplicação pode exibir a mensagem de que o algoritmo ainda não foi implementado. Após a conclusão correta dos algoritmos, o programa passa a desenhar as células exploradas e o caminho final encontrado.
 
+## Exemplos de execução
+
+Abaixo estão exemplos do mesmo labirinto resolvido pelos três algoritmos, com comparativo visual entre os resultados obtidos:
+
+### A* — caminho mais curto com expansão eficiente
+
+![A*](Docs/media/figura1-astar.png)
+
+*Execução do algoritmo A* no mesmo labirinto. O caminho encontrado foi de 29 células, com 71 células expandidas.*
+
+### BFS — solução mínima em largura
+
+![BFS](Docs/media/figura2-bfs.png)
+
+*Execução do algoritmo BFS no mesmo labirinto. Também encontrou o caminho mínimo de 29 células, com 71 células expandidas.*
+
+### DFS — caminho válido, porém geralmente menos eficiente
+
+![DFS](Docs/media/figura3-dfs.png)
+
+*Execução do algoritmo DFS no mesmo labirinto. O caminho encontrado foi um pouco mais longo, com 31 células, e explorou menos nós em comparação com BFS e A*.*
+
 ## Estrutura do projeto
 
 ```
