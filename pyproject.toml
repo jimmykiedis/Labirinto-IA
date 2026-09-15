@@ -1,0 +1,9 @@
+[project]
+name = "labirinto"
+version = "1.0.0"
+description = "Avaliação da discilplina de Inteligência Artificial do professor Alexandre Augusto"
+requires-python = ">=3.10"
+
+dependencies = [
+    "pygame>=2.5",
+]
