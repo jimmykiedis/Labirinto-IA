@@ -92,3 +92,16 @@ Cada uma dessas funções recebe um objeto `Maze` e retorna um `SearchResult` co
 ## Observação
 
 Este repositório serve como base para a avaliação prática da disciplina de IA, com a interface pronta e o código de apoio já preparado, permitindo que o foco principal esteja na implementação correta e eficiente dos algoritmos de busca.
+
+## Implementação
+
+Implementação em código realizada por:
+
+* Leonardo Farias de Oliveira
+* Josiel Phelipe Oliveira Franco
+
+## Créditos
+
+A interface, a estrutura inicial do projeto e os algoritmos utilizados foram disponibilizados pelo professor **Alexandre Augusto Angelo de Souza**, da **Universidade Federal da Grande Dourados (UFGD)**, como parte da avaliação da disciplina de **Inteligência Artificial**.
+
+Os autores deste projeto foram responsáveis pela **implementação dos algoritmos em código**, utilizando a estrutura e os algoritmos previamente fornecidos.
